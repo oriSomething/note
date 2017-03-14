@@ -1,0 +1,25 @@
+.DynamicTextarea {
+  overflow: hidden;
+}
+
+.DynamicTextarea--focus {
+}
+
+.DynamicTextarea__textarea {
+  width: 100%;
+  display: block;
+  direction: ltr;
+  border: none;
+  font-size: inherit;
+  line-height: inherit;
+  background-color: transparent;
+  resize: none;
+}
+
+.DynamicTextarea__textarea:focus {
+  outline: none;
+}
+
+.DynamicTextarea__textarea--rtl {
+  direction: rtl;
+}

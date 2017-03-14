@@ -3,13 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.9.0"
+    "flow-bin": "^0.41.0",
+    "perfectionist": "^2.4.0",
+    "prettier": "^0.22.0",
+    "react-scripts": "^0.9.5",
+    "redux-devtools": "^3.3.2",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.2.0"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
+    "history": "^4.5.1",
+    "immutable": "^3.8.1",
+    "normalize.css": "^5.0.0",
+    "path-to-regexp": "^1.7.0",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dnd": "^2.2.3",
+    "react-dom": "^15.4.2",
+    "react-motion": "^0.4.7",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
+    "flow": "flow",
+    "fmt": "yarn run fmt:js; yarn run fmt:css",
+    "fmt:js": "yarn run prettier -- --trailing-comma=all --jsx-bracket-same-line --write 'src/**/*.js'",
+    "fmt:css": "find src -name '*.css' | xargs -L 1 -P 15 -I % yarn run perfectionist -- % % --indentSize=2",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

@@ -1,0 +1,38 @@
+.UploadFile {
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: .5em;
+  margin: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, .75);
+}
+
+.UploadFile--hidden {
+  display: none;
+  visibility: hidden;
+}
+
+.UploadFile__title {
+  padding: 2em;
+  opacity: .5;
+  border: medium dashed var(--text-color);
+  border-radius: 1em;
+  font-size: var(--heading-font-size);
+  font-weight: 400;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.UploadFile__overlay {
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  opacity: 0;
+}
