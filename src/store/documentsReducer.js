@@ -58,7 +58,13 @@ export type Action =
   | ActionToggleDefaultRtl;
 
 function getInitialState() {
-  return new DocumentsStateRecord();
+  let state = new DocumentsStateRecord();
+
+  for (let item of loadLocalStorageItems()) {
+    state = state.setIn(["entities", item.id], createDocumentRecord(item));
+  }
+
+  return state;
 }
 
 export default function documentsReducer(
@@ -84,34 +90,71 @@ export default function documentsReducer(
 }
 
 function documentUpdateTitle(state, payload) {
-  return state.setIn(["entities", payload.id, "title"], payload.title);
+  state = state.setIn(["entities", payload.id, "title"], payload.title);
+  saveItemToLocalStorage(state, payload.id);
+  return state;
 }
 
 function documentUpdateBody(state, payload) {
-  return state.setIn(["entities", payload.id, "body"], payload.body);
+  state = state.setIn(["entities", payload.id, "body"], payload.body);
+  saveItemToLocalStorage(state, payload.id);
+  return state;
 }
 
 function documentCreate(state, payload) {
-  return state.setIn(
-    ["entities", payload.id],
-    new DocumentRecord({
-      title: payload.title,
-      body: payload.body,
-      rtl: payload.rtl,
-    }),
-  );
+  state = state.setIn(["entities", payload.id], createDocumentRecord(payload));
+  saveItemToLocalStorage(state, payload.id);
+  return state;
 }
 
 function documentTrashCurrent(state, payload) {
+  removeItemFromLocalStorage(payload.id);
   return state.deleteIn(["entities", payload.id]);
 }
 
 function documentToggleRtl(state, payload) {
   const rtl = state.getIn(["entities", payload.id, "rtl"]);
 
-  return state.setIn(["entities", payload.id, "rtl"], !rtl);
+  state = state.setIn(["entities", payload.id, "rtl"], !rtl);
+  saveItemToLocalStorage(state, payload.id);
+  return state;
 }
 
 function documentToggleDefaultRtl(state) {
   return state.set("rtl", !state.rtl);
+}
+
+/**
+ * Helpers
+ */
+
+function createDocumentRecord({ id, title, body, rtl }) {
+  return new DocumentRecord({
+    id,
+    title,
+    body,
+    rtl,
+  });
+}
+
+/**
+ * LocalStorage functions
+ */
+
+function loadLocalStorageItems() {
+  return Object.keys(localStorage)
+    .map(id => localStorage.getItem(id))
+    .filter(item => item != null)
+    .map((item: any) => JSON.parse(item));
+}
+
+function saveItemToLocalStorage(state, id: string) {
+  // Save to local storage
+  const record = state.getIn(["entities", id]);
+  const data = JSON.stringify(record.toJS());
+  localStorage.setItem(id, data);
+}
+
+function removeItemFromLocalStorage(id: string) {
+  localStorage.removeItem(id);
 }
