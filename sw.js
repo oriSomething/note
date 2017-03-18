@@ -1,5 +1,19 @@
 // Based on: https://developers.google.com/web/fundamentals/getting-started/primers/service-workers
-var CACHE_NAME = "my-site-cache-v1";
+var CACHE_NAME = "my-site-cache-v2";
+var urlsToCache = [
+  "/",
+  // For GH pages
+  "/note/",
+];
+
+self.addEventListener("install", function(event) {
+  const waitUntil = caches
+    .open(CACHE_NAME)
+    .then(cache => cache.addAll(urlsToCache));
+
+  // Perform install steps
+  event.waitUntil(waitUntil);
+});
 
 self.addEventListener("fetch", function(event) {
   const respondWith = caches.match(event.request).then(function(response) {
