@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import DevTools from "./DevTools/DevTools";
 import Application from "./Application/Application";
 import store from "./store/store";
+import "./utilities/installServiceWorker";
 import "./index.css";
 
 ReactDOM.render(
