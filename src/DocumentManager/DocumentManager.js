@@ -3,7 +3,6 @@
 import cx from "classnames";
 import React, { Component, PropTypes } from "react";
 import { spring, Motion } from "react-motion";
-import XMotion from "react-motion/lib/Motion";
 import Link from "../routing/Link";
 import * as Icons from "../Icons/Icons";
 import documentsConnector, {
