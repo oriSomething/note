@@ -3,6 +3,7 @@
 import cx from "classnames";
 import React, { Component, PropTypes } from "react";
 import { spring, Motion } from "react-motion";
+import XMotion from "react-motion/lib/Motion";
 import Link from "../routing/Link";
 import * as Icons from "../Icons/Icons";
 import documentsConnector, {
@@ -144,8 +145,8 @@ class DocumentManager extends Component {
         style={{
           y: spring(isOpen ? 0 : 75),
           opacity: spring(isOpen ? 1 : 0),
-        }}>
-        {styles => {
+        }}
+        children={styles => {
           if (!mount) return null;
 
           const allDocuments = this.getDocuments();
@@ -199,7 +200,7 @@ class DocumentManager extends Component {
             </section>
           );
         }}
-      </Motion>
+      />
     );
   }
 }
