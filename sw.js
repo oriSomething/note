@@ -1,9 +1,8 @@
 // Based on: https://developers.google.com/web/fundamentals/getting-started/primers/service-workers
 var CACHE_NAME = "my-site-cache-v2";
 var urlsToCache = [
-  "/",
   // For GH pages
-  "/note/",
+  "/note",
 ];
 
 self.addEventListener("install", function(event) {
